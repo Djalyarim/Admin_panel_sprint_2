@@ -1,11 +1,7 @@
--- Определение имени и создание БД в кластере
-CREATE DATABASE movies_database; 
-
--- Переключение на БД movies_database
-\c movies_database 
-
 -- Создание отдельной схемы для контента:
 CREATE SCHEMA IF NOT EXISTS content;
+
+SET search_path TO content,public;
 
 -- Создание таблицы 'Информация о фильмах': 
 CREATE TABLE IF NOT EXISTS content.film_work (
@@ -56,5 +52,6 @@ CREATE TABLE IF NOT EXISTS content.person_film_work (
     created_at      timestamp with time zone
 );
 
--- Создание уникального индекса 'Унакальность актера в фильме'
-CREATE UNIQUE INDEX film_work_person ON content.person_film_work (film_work_id, person_id);
+CREATE UNIQUE INDEX IF NOT EXISTS film_work_genre ON genre_film_work (film_work_id, genre_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS film_work_person_role ON person_film_work (film_work_id, person_id, role);
