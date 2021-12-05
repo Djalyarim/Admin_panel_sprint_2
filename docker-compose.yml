@@ -18,18 +18,4 @@ services:
       - 5050:5050
 
 
-
-
-
-# services:
-#   db:
-#     container_name: postgres
-#     image: postgres:13
-#     restart: always
-#     volumes:
-#       - /Users/djalyarim/Dev/middle-developer/Admin_panel_sprint_1/pgdata:/var/lib/postgresql/data
-#     env_file:
-#       - .env
-
-
       
