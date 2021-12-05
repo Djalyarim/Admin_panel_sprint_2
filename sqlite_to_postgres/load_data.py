@@ -46,7 +46,12 @@ class PostgresSaver(SQLiteLoader):
         for part in data:
             part_values = '\n'.join([object.get_values for object in part])
             with io.StringIO(part_values) as f:
-                self.cursor.copy_from(f, table=self.table_name, null='None', size=50)
+                self.cursor.copy_from(
+                    f,
+                    table=self.table_name,
+                    null='None',
+                    size=50
+                )
 
 
 def load_from_sqlite(sql_conn: sqlite3.Connection, psg_conn: _connection):
@@ -70,8 +75,18 @@ def load_from_sqlite(sql_conn: sqlite3.Connection, psg_conn: _connection):
 
 
 if __name__ == '__main__':
-    dsl = {'dbname': 'postgres', 'user': 'postgres', 'password': 'postgres', 'host': '127.0.0.1', 'port': 5432, 'options': '-c search_path=content'}
-    with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
+    dsl = {
+        'dbname': 'postgres',
+        'user': 'postgres',
+        'password': 'postgres',
+        'host': '127.0.0.1',
+        'port': 5432,
+        'options': '-c search_path=content'
+    }
+    with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(
+                                                      **dsl,
+                                                      cursor_factory=DictCursor
+                                                      ) as pg_conn:
         load_from_sqlite(sqlite_conn, pg_conn)
 
     sqlite_conn.close()
