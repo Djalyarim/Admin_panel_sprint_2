@@ -36,7 +36,7 @@ __pycache__/
 .Python
 env/
 venv/
-pgdata/
+pgdata/*
 build/
 develop-eggs/
 dist/

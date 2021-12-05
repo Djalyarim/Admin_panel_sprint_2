@@ -1,4 +1,5 @@
 import io
+import os
 
 import sqlite3
 
@@ -6,7 +7,12 @@ import psycopg2
 from psycopg2.extensions import connection as _connection
 from psycopg2.extras import DictCursor
 
+from dotenv import load_dotenv
+
 from data_classes import Movie, Person, Genre, GenreFilmWork, PersonFilmWork
+from custom_log import log
+
+load_dotenv()
 
 TABLES_CLASSES = {
     'film_work': Movie,
@@ -62,25 +68,25 @@ def load_from_sqlite(sql_conn: sqlite3.Connection, psg_conn: _connection):
             sqlite_loader = SQLiteLoader(sql_conn, table_name, data_class)
             data = sqlite_loader.load_movies()
         except Exception:
-            print('Ошибка во время чтения SQLite')
+            log.exception('Ошибка во время чтения SQLite')
             break
         try:
             postgres_saver = PostgresSaver(psg_conn, table_name, data_class)
             postgres_saver.save_all_data(data)
         except Exception:
-            print('Ошибка во время записи в Postgres')
+            log.exception('Ошибка во время записи в Postgres')
             break
         else:
-            print(f'Таблица {table_name} загружена')
+            log.info(f'Таблица {table_name} загружена')
 
 
 if __name__ == '__main__':
     dsl = {
-        'dbname': 'postgres',
-        'user': 'postgres',
-        'password': 'postgres',
-        'host': '127.0.0.1',
-        'port': 5432,
+        'dbname': os.getenv('POSTGRES_DB'),
+        'user': os.getenv('POSTGRES_USER'),
+        'password': os.getenv('POSTGRES_PASSWORD'),
+        'host': os.getenv('DB_LOCAL_HOST'),
+        'port': os.getenv('DB_PORT'),
         'options': '-c search_path=content'
     }
     with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(
