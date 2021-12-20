@@ -30,4 +30,30 @@
 ```
 git clone https://github.com/Djalyarim/Admin_panel_sprint_2
 ```
+### Создайте и активируйте виртуальное окружение
+```
+python -m venv venv<br>
+source ./venv/Scripts/activate  #для Windows
+source ./venv/bin/activate      #для Linux и macOS
+```
+### Установите требуемые зависимости
+```
+pip install -r requirements.txt
+```
+### В корне проекта создайте файл .env и заполните переменные окружения:
+```
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+DB_PORT=5432
+DB_HOST=db
+DB_LOCAL_HOST=localhost
+SECRET_KEY='=r%8-4!jg_8z!^r793lt@dyn+(^e_($^wd_ic&t#2p5gpsuo-u'
+DEBAG=False
+ALLOWED_HOSTS=[*]
 
+```
+### Соберите docker-compose:
+```
+infra/docker-compose up -d --build
+```
