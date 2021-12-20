@@ -65,11 +65,11 @@ python load_data.py
 ```
 #### Соберите статические файлы (из папки infra):
 ```
-sudo docker-compose exec backend python manage.py collectstatic --noinput
+docker-compose exec backend python manage.py collectstatic --noinput
 ```
 #### Создайте суперпользователя Django (из папки infra):
 ```
-sudo docker-compose exec backend python manage.py createsuperuser
+docker-compose exec backend python manage.py createsuperuser
 ```
 ### Проект доступен для ревью локально:
 ```
