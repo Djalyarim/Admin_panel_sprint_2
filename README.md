@@ -72,5 +72,7 @@ sudo docker-compose exec backend python manage.py collectstatic --noinput
 sudo docker-compose exec backend python manage.py createsuperuser
 ```
 ### Проект доступен для ревью локально:
+```
 http://localhost/admin/
 http://localhost/api/v1/movies/
+```
