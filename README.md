@@ -53,7 +53,24 @@ DEBAG=False
 ALLOWED_HOSTS=[*]
 
 ```
-### Соберите docker-compose:
+### Соберите docker-compose (из папки infra):
 ```
-infra/docker-compose up -d --build
+docker-compose up -d --build
 ```
+### Скрипт создания таблиц в postgres выполняется автоматически
+
+### Запустите скрипт миграции данных из sqlite3 в postgres из папки sqlite_to_postgres
+```
+python load_data.py
+```
+#### Соберите статические файлы (из папки infra):
+```
+sudo docker-compose exec backend python manage.py collectstatic --noinput
+```
+#### Создайте суперпользователя Django (из папки infra):
+```
+sudo docker-compose exec backend python manage.py createsuperuser
+```
+### Проект доступен для ревью локально:
+http://localhost/admin/
+http://localhost/api/v1/movies/
