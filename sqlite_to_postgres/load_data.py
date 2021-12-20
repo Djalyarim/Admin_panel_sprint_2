@@ -89,10 +89,8 @@ if __name__ == '__main__':
         'port': os.getenv('DB_PORT'),
         'options': '-c search_path=content'
     }
-    with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(
-                                                      **dsl,
-                                                      cursor_factory=DictCursor
-                                                      ) as pg_conn:
+    with (sqlite3.connect('db.sqlite') as sqlite_conn,
+          psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn):
         load_from_sqlite(sqlite_conn, pg_conn)
 
     sqlite_conn.close()

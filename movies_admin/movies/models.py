@@ -115,6 +115,7 @@ class Filmwork(TimeMixin):
     )
     type = models.CharField(_('Тип произведения'), max_length=20, choices=FilmworkType.choices)
     genres = models.ManyToManyField(Genre, through='FilmworkGenre')
+    persons = models.ManyToManyField(Person, through='PersonRole')
 
     class Meta:
         verbose_name = _('Фильм')
