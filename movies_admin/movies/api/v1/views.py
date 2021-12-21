@@ -1,4 +1,3 @@
-from enum import unique
 from django.contrib.postgres.aggregates import ArrayAgg
 from django.db.models import Q
 from django.http import JsonResponse
@@ -35,7 +34,7 @@ class MoviesApiMixin:
         queryset = Filmwork.objects.prefetch_related(
             'FilmworkGenre', 'PersonRole'
             ).values(
-            'id', 'title', 'description','creation_date', 'rating', 'type'
+            'id', 'title', 'description', 'creation_date', 'rating', 'type'
             ).annotate(
             genres=genres, actors=actors, writers=writers, directors=directors
         )

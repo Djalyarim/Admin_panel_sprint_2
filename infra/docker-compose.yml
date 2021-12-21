@@ -5,8 +5,6 @@ services:
   db:
     build:
       postgres/.
-    ports:
-      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ../schema_design/db_schema.sql:/docker-entrypoint-initdb.d/db_schema.sql
@@ -25,7 +23,6 @@ services:
     env_file:
       - ../.env
 
-
   nginx:
     build:
       nginx/.
@@ -37,7 +34,6 @@ services:
     restart: always
     depends_on:
       - backend
-
 
 volumes:
   postgres_data:

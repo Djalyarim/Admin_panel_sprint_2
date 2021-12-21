@@ -1,3 +1,3 @@
 FROM postgres:14.1
 
-EXPOSE 5432/tcp
+EXPOSE 5432
