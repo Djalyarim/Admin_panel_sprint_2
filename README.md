@@ -63,10 +63,6 @@ docker-compose up -d --build
 ```
 python load_data.py
 ```
-#### Соберите статические файлы (из папки infra):
-```
-docker-compose exec backend python manage.py collectstatic --noinput
-```
 #### Создайте суперпользователя Django (из папки infra):
 ```
 docker-compose exec backend python manage.py createsuperuser

@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.generic.list import BaseListView
 from django.views.generic import DetailView
 
-from movies.models import Filmwork
+from movies.models import Filmwork, RoleType
 
 
 class MoviesApiMixin:
@@ -20,17 +20,17 @@ class MoviesApiMixin:
         actors = ArrayAgg(
             'personrole__person__full_name',
             distinct=True,
-            filter=Q(personrole__role='actor')
+            filter=Q(personrole__role=RoleType.ACTOR)
         )
         writers = ArrayAgg(
             'personrole__person__full_name',
             distinct=True,
-            filter=Q(personrole__role='writer')
+            filter=Q(personrole__role=RoleType.WRITER)
         )
         directors = ArrayAgg(
             'personrole__person__full_name',
             distinct=True,
-            filter=Q(personrole__role='director')
+            filter=Q(personrole__role=RoleType.DIRECTOR)
         )
         queryset = Filmwork.objects.prefetch_related(
             'FilmworkGenre', 'PersonRole'
